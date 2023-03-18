@@ -31,7 +31,7 @@ class Solution
                     index = (left + right) / 2;
                 }
             }
-            // because of using binary search, we need to check the situation of
+            // because of using binary search, we need to check the situation that we have only two elements left.
             if (index == arr.size() - 2 && index + 1 < arr[index + 1])
                 return index + 2;
             else
