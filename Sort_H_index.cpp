@@ -1,4 +1,5 @@
 // LeetCode #274
+// https://leetcode.com/problems/h-index/
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -16,7 +17,7 @@ class Solution
             if (arr[0] == 0)
                 return 0;
 
-            while (index < arr.size() && index != left)
+            while (index != left)
             {
                 if (arr[index] == index + 1)
                     break;
