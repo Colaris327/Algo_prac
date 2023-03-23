@@ -34,7 +34,7 @@ int main()
         int target = (arr_sum_prev[index] - arr_int[index] + mission[i]) % *(arr_sum_prev.end() - 1);
         if (!target)
             target = arr_sum_prev[index] - arr_int[index] + mission[i];
-        index = std::lower_bound(arr_sum_prev.begin(), arr_sum_prev.end(), target) - arr_sum_prev.begin() + 1;
+        index = (std::lower_bound(arr_sum_prev.begin(), arr_sum_prev.end(), target) - arr_sum_prev.begin() + 1) % N;
     }
 
     std::cout << index % N << std::endl;
