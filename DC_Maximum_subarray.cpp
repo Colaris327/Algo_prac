@@ -1,12 +1,12 @@
 // LeetCode #53
 // https://leetcode.com/problems/maximum-subarray/
-// using recursive
 #include <iostream>
 #include <vector>
 
 class Solution
 {
     public:
+        // use divide and conquer
         int maxSubArray(std::vector<int>& nums) {return max_sub(nums, 0, nums.size() - 1);}
         int max_sub(std::vector<int>& nums, int left, int right)
         {
@@ -40,12 +40,27 @@ class Solution
             else
                 return max_mid;
         }
+        // another solution
+        int max_subarr_v2(std::vector<int>& nums)
+        {
+            int max = INT32_MIN, temp = 0;
+            for (int i = 0; i < nums.size(); i++)
+            {
+                temp += nums[i];
+                if (temp > max)
+                    max = temp;
+                if (temp < 0)
+                    temp = 0;
+            }
+            return max;
+        }
 };
 
 int main()
 {
     Solution S;
     std::vector<int> arr = {-2,1,-3,4,-1,2,1,-5,4};
-    std::cout << S.maxSubArray(arr);
+    std::cout << S.maxSubArray(arr) << std::endl;
+    std::cout << S.max_subarr_v2(arr);
     return 0;
 }
