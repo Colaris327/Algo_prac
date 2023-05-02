@@ -5,37 +5,38 @@
 #include <algorithm>
 using namespace std;
 
-int Inversion(vector<int> &arr)
+long long Inversion(vector<int> &arr)
 {
     if (arr.size() <= 1)
         return 0;
     else if (arr.size() == 2)
         return arr[0] > arr[1];
 
-    vector<int> tmp = arr;
-    sort(tmp.begin(), tmp.end());
-    int median = tmp[tmp.size() / 2];
-    cout << median << endl;
+    // don't use this, use absolute median might cause forever loop like {3, 2, 3}
+    // vector<int> tmp = arr;
+    // sort(tmp.begin(), tmp.end());
+    // int median = tmp[tmp.size() / 2];
 
-    // int max = INT32_MIN, min = INT32_MAX;
-    // for (int i = 0; i < arr.size(); i++)
-    // {
-    //     if (arr[i] > max)
-    //         max = arr[i];
-    //     if (arr[i] < min)
-    //         min = arr[i];
-    // }
-
+    int max = INT32_MIN, min = INT32_MAX;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        if (arr[i] > max)
+            max = arr[i];
+        if (arr[i] < min)
+            min = arr[i];
+    }
     // all elements are same
-    if (tmp[0] == tmp[tmp.size() - 1])
+    if (max == min)
         return 0;
+    // median is an important part, must prevent from causing forever loop
+    int median = min + (max - min) / 2;
 
-    int count = 0;
+    long long count = 0;
     vector<int> v1, v2;
     for (int i = 0; i < arr.size(); i++)
     {
         int value = arr[i];
-        if (arr[i] < median)
+        if (arr[i] <= median)
         {
             v1.push_back(value);
             count += v2.size();
@@ -43,6 +44,7 @@ int Inversion(vector<int> &arr)
         else
             v2.push_back(value);
     }
+    
     return count + Inversion(v1) + Inversion(v2);
 }
 
