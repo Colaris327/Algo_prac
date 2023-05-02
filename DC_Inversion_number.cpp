@@ -15,18 +15,33 @@ int Inversion(vector<int> &arr)
     vector<int> tmp = arr;
     sort(tmp.begin(), tmp.end());
     int median = tmp[tmp.size() / 2];
+    cout << median << endl;
+
+    // int max = INT32_MIN, min = INT32_MAX;
+    // for (int i = 0; i < arr.size(); i++)
+    // {
+    //     if (arr[i] > max)
+    //         max = arr[i];
+    //     if (arr[i] < min)
+    //         min = arr[i];
+    // }
+
+    // all elements are same
+    if (tmp[0] == tmp[tmp.size() - 1])
+        return 0;
 
     int count = 0;
     vector<int> v1, v2;
     for (int i = 0; i < arr.size(); i++)
     {
+        int value = arr[i];
         if (arr[i] < median)
         {
-            v1.push_back(arr[i]);
+            v1.push_back(value);
             count += v2.size();
         }
         else
-            v2.push_back(arr[i]);
+            v2.push_back(value);
     }
     return count + Inversion(v1) + Inversion(v2);
 }
