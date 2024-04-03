@@ -9,34 +9,55 @@ class Solution
     public:
         int H_index(std::vector<int>& arr)
         {
-            std::sort(arr.begin(), arr.end(), std::greater<int>());
+            // std::sort(arr.begin(), arr.end(), std::greater<int>());
 
-            // binary search
-            int index = arr.size() / 2;
+            // // binary search
+            // int index = arr.size() / 2;
+            // int left = 0, right = arr.size() - 1;
+            // if (arr[0] == 0)
+            //     return 0;
+
+            // while (index != left)
+            // {
+            //     if (arr[index] == index + 1)
+            //         break;
+            //     else if (arr[index] > index + 1)
+            //     {
+            //         left = index;
+            //         index = (right + index) / 2;
+            //     }
+            //     else
+            //     {
+            //         right = index;
+            //         index = (left + right) / 2;
+            //     }
+            // }
+            // // because of using binary search, we need to check the situation that we have only two elements left.
+            // if (index == arr.size() - 2 && index + 1 < arr[index + 1])
+            //     return index + 2;
+            // else
+            //     return index + 1;
+
+            std::sort(arr.begin(), arr.end());
             int left = 0, right = arr.size() - 1;
-            if (arr[0] == 0)
-                return 0;
+            int n = arr.size();
+            int index;
 
-            while (index != left)
+            while(left <= right)
             {
-                if (arr[index] == index + 1)
-                    break;
-                else if (arr[index] > index + 1)
+                index = (left + right) / 2;
+                if ((n - index) < arr[index])
                 {
-                    left = index;
-                    index = (right + index) / 2;
+                    right = index - 1;
+                }
+                else if ((n - index) > arr[index])
+                {
+                    left = index + 1;
                 }
                 else
-                {
-                    right = index;
-                    index = (left + right) / 2;
-                }
+                    return arr[index];
             }
-            // because of using binary search, we need to check the situation that we have only two elements left.
-            if (index == arr.size() - 2 && index + 1 < arr[index + 1])
-                return index + 2;
-            else
-                return index + 1;
+            return n - left;
         }
 };
 
